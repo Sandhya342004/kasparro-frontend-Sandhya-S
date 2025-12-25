@@ -55,13 +55,14 @@ interface AuditResult {
   recommendations: Recommendation[];
 }
 
-2. Modular Audit System
+# 2. Modular Audit System
 
 Each audit module is designed to be independent and composable.
 The audit page dynamically renders module data based on user selection, allowing the system to scale as additional audits are introduced without increasing UI complexity.
 This reflects how a real AI-powered audit engine would expose results module-by-module.
 
-3. Intentional State Simplicity
+# 3. Intentional State Simplicity
+
 Local React state (useState) is used instead of global state libraries.
 
 This is a deliberate choice because:
@@ -70,20 +71,18 @@ State requirements are localized to individual pages
 No cross-route or global synchronization is required
 Simpler state management improves readability for a V1 product
 
-**Project Structure**
+# Project Structure:
 
 src/
 ├── app/
 │   ├── page.tsx              # Public homepage
 │   ├── platform/             # Platform explanation
-│   ├── about/                # About page
 │   └── app/                  # Dashboard shell
 │       ├── dashboard/        # Brand overview
 │       ├── audit/            # Modular audit system
 │       └── architecture/     # System architecture
 │
 ├── components/
-│   ├── layout/               # Shared layouts
 │   ├── dashboard/            # Dashboard components
 │   └── audit/                # Audit UI components
 │
@@ -92,8 +91,7 @@ src/
 │   └── data/                 # Structured mock data
 
 
-**Architecture Overview**
-The system follows a simple, composable flow:
+# Architecture Overview:
 
 Inputs (Brand, Content, SERP data)
         ↓
@@ -104,45 +102,44 @@ Context Pack
 Independent Audit Modules
         ↓
 Output Surfaces (Scores, Insights, Recommendations)
-This separation ensures that audit logic, data preparation, and presentation remain loosely coupled.
 
-What Was Intentionally Skipped
+This separation keeps data preparation, audit logic, and presentation loosely coupled.
+
+# What Was Intentionally Skipped:
+
 Due to time constraints, the focus was placed on core audit functionality and system clarity rather than feature completeness.
 
-**The following were intentionally excluded:**
+The following were intentionally excluded:
 
 Authentication and authorization
 Backend integration
 Persistent audit history
 Real AI inference and model execution
-
 These features can be added later without restructuring the frontend.
 
-**What I Would Build Next:**
-If this project were extended into a production system, the next steps would include:
+# What I Would Build Next:
 
-Replacing mock data with real API responses
-Adding audit history, trends, and comparisons
-Enabling brand-to-brand benchmarking
-Introducing role-based access and collaboration features
+If this were extended into a production system:
 
-**Tech Stack**
+Replace mock data with real API responses
+Add audit history and trend comparisons
+Enable brand-to-brand benchmarking
+Introduce role-based access and collaboration features
+
+# Tech Stack:
+
 Next.js (App Router)
 TypeScript
 Tailwind CSS
 Recharts
-These tools were chosen to prioritize clarity, scalability, and developer experience.
 
-**Summary:**
+# Summary:
 
 This project demonstrates:
 
-A data-driven frontend architecture
-
+Data-driven frontend architecture
 Modular system design suitable for AI-powered products
-
-Thoughtful scoping and prioritization under time constraints
-
+Thoughtful scoping under time constraints
 Clear separation between data, logic, and presentation
 
 Author: Sandhya
