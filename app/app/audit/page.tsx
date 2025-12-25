@@ -5,10 +5,9 @@ import { AUDIT_MODULES } from '@/lib/data/modules';
 import { AUDIT_RESULTS } from '@/lib/data/audit-data';
 import { getStatusColor } from '@/lib/utils';
 import { 
-  Eye, Shield, FileText, Network, Link, Code, TrendingUp,
-  AlertCircle, CheckCircle2, AlertTriangle, Info, ChevronRight, Search, Filter
+  Eye, Shield, FileText, Network, Link as LinkIcon, Code, TrendingUp,
+  AlertCircle, CheckCircle2, AlertTriangle, Info, ChevronRight, Search
 } from 'lucide-react';
-
 // Icon mapping
 const iconMap: Record<string, any> = {
   Eye, Shield, FileText, Network, Link, Code, TrendingUp
