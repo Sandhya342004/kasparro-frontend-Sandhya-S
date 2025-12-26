@@ -1,52 +1,40 @@
 # Kasparro – AI-Native SEO Intelligence Platform
 
-> Frontend V1 implementation of an AI-native SEO and brand intelligence system, focused on modular audits and data-driven UI architecture.
+Frontend V1 implementation demonstrating system thinking, component architecture, and product understanding for an AI-native SEO platform.
 
----
+**Live Demo:** https://kasparro-frontendsandhyas.vercel.app/  
+**GitHub Repository:** https://github.com/Sandhya342004/kasparro-frontend-Sandhya-S.git
+
 
 ## Project Overview
 
-Kasparro is an AI-native SEO platform designed to evaluate how modern AI systems (such as ChatGPT, Claude, Perplexity, and other LLM-driven search tools) perceive and represent brands.
+Kasparro is an AI-native SEO platform that analyzes how modern AI systems (ChatGPT, Claude, Perplexity, etc.) perceive and represent brands. This frontend focuses on:
 
-This project represents a **frontend V1** of the product and focuses on:
-- Explaining the product and system to users
-- Providing an internal dashboard for brand audits
-- Demonstrating how modular AI-driven audits can be surfaced in a scalable frontend
+- **Clear system architecture** with data-driven components  
+- **UX decisions** that anticipate real user needs  
+- **TypeScript interfaces** and modular components for scalability  
 
-The emphasis is on **system clarity, architecture, and decision-making**, rather than full backend or AI implementation.
+## What I Built
 
----
+### Public Website
+- **Homepage (`/`)** – Value proposition, AI-SEO comparison, and 7-module showcase.
+- **Platform (`/platform`)** – Technical architecture and system flow.
+- **About (`/about`)** – Mission, philosophy, and vision.
 
-# Key Product Surfaces
+### Product Dashboard (`/app/*`)
+- **Dashboard (`/app/dashboard`)** – Brand health metrics with scores and trends.
+- **Audit System (`/app/audit`)** – Module-based analysis with search and filtering.
+- **Architecture (`/app/architecture`)** – Visual system pipeline.
 
-- **Public Website**  
-  Explains the problem, platform vision, and AI-driven audit approach.
+## Core Design Decisions
 
-- **Dashboard (`/app/dashboard`)**  
-  Provides a high-level overview of brand performance and metrics.
+### 1. Data-First Architecture
+All content is driven by structured TypeScript interfaces rather than hardcoded JSX. This ensures:
+* Components remain purely presentational.
+* Easy swapping of mock data for real APIs.
+* Type safety to prevent runtime errors.
 
-- **Audit System (`/app/audit`)**
-  Core product surface that displays detailed, module-based audit results.
-
-- **Architecture View (`/app/architecture`)**  
-  Visual explanation of how data flows through the system.
-
----
-
-# Core Design Decisions
-
-# 1. Data-First Architecture
-
-All dashboard and audit content is driven from **structured, typed mock data**, not hardcoded UI values.
-
-This approach mirrors real-world API responses and ensures that:
-- New audit modules can be added without modifying UI components
-- The UI scales cleanly as audit complexity grows
-- Frontend logic remains predictable and maintainable
-
-Example structure:
-
-```ts
+```typescript
 interface AuditResult {
   moduleId: string;
   score: number;
@@ -55,92 +43,123 @@ interface AuditResult {
   recommendations: Recommendation[];
 }
 
-# 2. Modular Audit System
+```
 
-Each audit module is designed to be independent and composable.
-The audit page dynamically renders module data based on user selection, allowing the system to scale as additional audits are introduced without increasing UI complexity.
-This reflects how a real AI-powered audit engine would expose results module-by-module.
+### 2. Component Architecture
 
-# 3. Intentional State Simplicity
+Focused on small, composable, and reusable components:
 
-Local React state (useState) is used instead of global state libraries.
+```text
+components/
+  ├── dashboard/    # Dashboard-specific components
+  ├── ui/           # Reusable UI primitives (Buttons, Cards)
+  └── shared/       # Navigation, Footer, and layout elements
 
-This is a deliberate choice because:
+```
 
-State requirements are localized to individual pages
-No cross-route or global synchronization is required
-Simpler state management improves readability for a V1 product
+### 3. State Management
 
-# Project Structure:
+Used `useState` for V1 as state is localized to specific pages. This keeps the architecture simple, easy to reason about, and performant without the overhead of Redux or Zustand.
 
-src/
+### 4. UX Enhancements
+
+* **Search & Filter:** Quickly navigate through the 7+ analysis modules.
+* **Expandable Recommendations:** UI is kept clean by collapsing details by default.
+* **Dynamic Status Indicators:** Color-coded scores and trend badges for "at-a-glance" insights.
+
+---
+
+## Project Structure
+
+```text
+kasparro-assignment/
 ├── app/
-│   ├── page.tsx              # Public homepage
-│   ├── platform/             # Platform explanation
-│   └── app/                  # Dashboard shell
-│       ├── dashboard/        # Brand overview
-│       ├── audit/            # Modular audit system
-│       └── architecture/     # System architecture
-│
-├── components/
-│   ├── dashboard/            # Dashboard components
-│   └── audit/                # Audit UI components
-│
+│   ├── page.tsx            # Home
+│   ├── platform/page.tsx   # Platform Info
+│   ├── about/page.tsx      # About Us
+│   └── app/                # Authenticated Dashboard Area
+│       ├── dashboard/      # Main Metrics
+│       ├── audit/          # Detailed Analysis
+│       └── architecture/   # System Flow
 ├── lib/
-│   ├── types.ts              # Shared TypeScript types
-│   └── data/                 # Structured mock data
+│   ├── types.ts            # Global Type Definitions
+│   ├── utils.ts            # Helper Functions
+│   └── data/               # Mock Data (Modules, Brands, Audits)
+├── components/             # Atomic Design Components
+├── tailwind.config.ts
+└── README.md
+
+```
+
+---
+
+## Technology Stack
+
+| Technology        | Purpose                                        |
+| ---               |                                            --- |
+| **Next.js 15**    | App Router for modern React patterns           |
+| **TypeScript**    | Type safety and robust developer experience    |
+| **Tailwind CSS**  | Utility-first styling for rapid UI development |
+| **Lucide React**  | Consistent, lightweight icon system            |
+| **Recharts**      | Integrated for future data visualization       |
+
+---
+
+## Tradeoffs & Decisions
+
+* **Priority:** Focused heavily on the **Dashboard & Audit System** over marketing pages to demonstrate product depth.
+* **Added Value:** Implemented functional **Search & Filter** to show handling of data sets.
+* **Simplicity:** Omitted Auth and Dark Mode to prioritize core UI/UX architecture within the timeframe.
+* **Ready for Scale:** Mock data is isolated in `/lib/data` to allow for immediate API integration.
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+* Node.js 18+
+* npm or yarn
+
+### Installation
+
+1. **Clone the repo:**
+```bash
+git clone [https://github.com/Sandhya342004/kasparro-frontend-Sandhya-S.git](https://github.com/Sandhya342004/kasparro-frontend-Sandhya-S.git)
+
+```
 
 
-# Architecture Overview:
+2. **Install dependencies:**
+```bash
+cd kasparro-assignment
+npm install
 
-Inputs (Brand, Content, SERP data)
-        ↓
-Input Assembler
-        ↓
-Context Pack
-        ↓
-Independent Audit Modules
-        ↓
-Output Surfaces (Scores, Insights, Recommendations)
+```
 
-This separation keeps data preparation, audit logic, and presentation loosely coupled.
 
-# What Was Intentionally Skipped:
+3. **Run development server:**
+```bash
+npm run dev
 
-Due to time constraints, the focus was placed on core audit functionality and system clarity rather than feature completeness.
+```
 
-The following were intentionally excluded:
 
-Authentication and authorization
-Backend integration
-Persistent audit history
-Real AI inference and model execution
-These features can be added later without restructuring the frontend.
+4. Open [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000)
 
-# What I Would Build Next:
+---
 
-If this were extended into a production system:
+## What This Demonstrates
 
-Replace mock data with real API responses
-Add audit history and trend comparisons
-Enable brand-to-brand benchmarking
-Introduce role-based access and collaboration features
+* **Modern React & TypeScript** proficiency.
+* **UX Design** for data-heavy enterprise interfaces.
+* **Clean Architecture** and modular component thinking.
+* **Product Ownership** through intentional feature selection.
 
-# Tech Stack:
+---
 
-Next.js (App Router)
-TypeScript
-Tailwind CSS
-Recharts
+# Author
 
-# Summary:
+Sandhya
 
-This project demonstrates:
-
-Data-driven frontend architecture
-Modular system design suitable for AI-powered products
-Thoughtful scoping under time constraints
-Clear separation between data, logic, and presentation
-
-Author: Sandhya
-Purpose: Frontend Engineering Assignment
+Email: sandhyagowda506@gmail.com
