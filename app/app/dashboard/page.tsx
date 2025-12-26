@@ -44,6 +44,7 @@ export default function DashboardPage() {
             score={data.trustScore}
             trend={data.trends.trust}
             color="green"
+            className="animate-delay-100"
           />
 
           {/* Keyword Coverage */}
@@ -54,6 +55,7 @@ export default function DashboardPage() {
             trend={data.trends.keywords}
             color="purple"
             subtitle={`${data.coveredKeywords} of ${data.totalKeywords} keywords`}
+            className="animate-delay-200"
           />
         </div>
 
@@ -96,7 +98,8 @@ function ScoreCard({
   score,
   trend,
   color,
-  subtitle
+  subtitle,
+  className = ''
 }: {
   icon: React.ReactNode;
   label: string;
@@ -104,6 +107,7 @@ function ScoreCard({
   trend: number;
   color: 'blue' | 'green' | 'purple';
   subtitle?: string;
+  className?: string;
 }) {
   const colorClasses = {
     blue: 'text-blue-600 bg-blue-50',
@@ -114,15 +118,15 @@ function ScoreCard({
   const isPositive = trend > 0;
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
-      <div className={`inline-flex p-3 rounded-lg ${colorClasses[color]} mb-4`}>
+    <div className={`bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg hover:scale-105 transition-all duration-300 animate-fadeIn ${className}`}>
+      <div className={`inline-flex p-3 rounded-lg ${colorClasses[color]} mb-4 hover:scale-110 transition-transform`}>
         {icon}
       </div>
       
       <h3 className="text-sm font-medium text-gray-600 mb-2">{label}</h3>
       
       <div className="flex items-end gap-2 mb-2">
-        <span className="text-4xl font-bold text-gray-900">{score}</span>
+        <span className="text-4xl font-bold text-gray-900 animate-float">{score}</span>
         <span className="text-lg text-gray-500 mb-1">/100</span>
       </div>
 

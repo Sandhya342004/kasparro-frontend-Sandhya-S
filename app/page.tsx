@@ -37,30 +37,30 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="pt-20 pb-16 px-6">
         <div className="max-w-7xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-200 rounded-full mb-6">
-            <Sparkles className="w-4 h-4 text-blue-600" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-200 rounded-full mb-6 animate-fadeIn">
+            <Sparkles className="w-4 h-4 text-blue-600 animate-float" />
             <span className="text-sm font-medium text-blue-600">AI-Native SEO Intelligence</span>
           </div>
           
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight animate-fadeIn animate-delay-100">
             Understand How AI<br />Sees Your Brand
           </h1>
           
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto animate-fadeIn animate-delay-200">
             Kasparro analyzes how AI platforms like ChatGPT, Claude, and Perplexity understand and represent your brand across billions of queries.
           </p>
 
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center justify-center gap-4 animate-fadeIn animate-delay-300">
             <Link 
               href="/app/dashboard"
-              className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 flex items-center gap-2"
+              className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 hover:scale-105 hover:shadow-lg flex items-center gap-2 transition-all duration-200"
             >
               View Live Dashboard
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link 
               href="/platform"
-              className="px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:border-gray-400"
+              className="px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:border-gray-400 hover:bg-gray-50 transition-all duration-200"
             >
               Learn More
             </Link>
@@ -77,7 +77,7 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Traditional SEO */}
-            <div className="bg-white p-8 rounded-xl border border-gray-200">
+            <div className="bg-white p-8 rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-300 animate-slideInLeft">
               <h3 className="text-xl font-bold text-gray-900 mb-4">Traditional SEO</h3>
               <ul className="space-y-3">
                 <ComparisonItem text="Focus on keyword rankings" />
@@ -89,7 +89,7 @@ export default function HomePage() {
             </div>
 
             {/* AI-SEO */}
-            <div className="bg-blue-50 p-8 rounded-xl border-2 border-blue-500">
+            <div className="bg-blue-50 p-8 rounded-xl border-2 border-blue-500 hover:shadow-xl hover:scale-105 transition-all duration-300 animate-slideInRight">
               <h3 className="text-xl font-bold text-gray-900 mb-4">AI-Native SEO</h3>
               <ul className="space-y-3">
                 <ComparisonItem text="Focus on mention frequency & context" highlight />
@@ -188,8 +188,8 @@ export default function HomePage() {
 // Module Card Component
 function ModuleCard({ module, Icon }: { module: any; Icon: any }) {
   return (
-    <div className="bg-white p-6 rounded-xl border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-all">
-      <div className="inline-flex p-3 bg-blue-50 rounded-lg mb-4">
+    <div className="bg-white p-6 rounded-xl border border-gray-200 hover:border-blue-500 hover:shadow-lg hover:scale-105 transition-all duration-300 animate-fadeIn">
+      <div className="inline-flex p-3 bg-blue-50 rounded-lg mb-4 hover:bg-blue-100 transition-colors">
         <Icon className="w-6 h-6 text-blue-600" />
       </div>
       <h3 className="text-lg font-semibold text-gray-900 mb-2">{module.name}</h3>
@@ -221,11 +221,11 @@ function PipelineStep({
   description: string;
 }) {
   return (
-    <div className="text-center">
-      <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 text-white rounded-full mb-4 text-2xl font-bold">
+    <div className="text-center animate-fadeIn hover:scale-105 transition-all duration-300">
+      <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 text-white rounded-full mb-4 text-2xl font-bold hover:bg-blue-700 transition-colors">
         {number}
       </div>
-      <div className="mb-4 text-blue-600 flex justify-center">
+      <div className="mb-4 text-blue-600 flex justify-center animate-float">
         {icon}
       </div>
       <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>

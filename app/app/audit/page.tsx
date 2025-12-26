@@ -270,10 +270,10 @@ function InsightCard({ insight }: { insight: Insight }) {
   };
 
   return (
-    <div className="border border-gray-200 rounded-lg p-4 hover:border-green-400 hover:shadow-md transition-all">
+    <div className="border border-gray-200 rounded-lg p-4 hover:border-green-400 hover:shadow-md hover:scale-105 transition-all duration-300 animate-fadeIn">
       <div className="flex items-start justify-between mb-2">
         <h3 className="font-semibold text-gray-900">{insight.title}</h3>
-        <span className={`px-2 py-1 rounded text-xs font-medium border ${impactColors[insight.impact]}`}>
+        <span className={`px-2 py-1 rounded text-xs font-medium border ${impactColors[insight.impact]} animate-float`}>
           {insight.impact.toUpperCase()}
         </span>
       </div>
@@ -293,16 +293,16 @@ function IssueCard({ issue }: { issue: Issue }) {
   const Icon = config.icon;
 
   return (
-    <div className={`border rounded-lg p-4 ${config.border} ${config.bg} hover:shadow-md transition-all`}>
+    <div className={`border rounded-lg p-4 ${config.border} ${config.bg} hover:shadow-md hover:scale-105 transition-all duration-300 animate-fadeIn`}>
       <div className="flex items-start gap-3">
-        <Icon className={`w-5 h-5 mt-0.5 ${config.color}`} />
+        <Icon className={`w-5 h-5 mt-0.5 ${config.color} animate-float`} />
         <div className="flex-1">
           <h3 className="font-semibold text-gray-900 mb-1">{issue.title}</h3>
           <p className="text-sm text-gray-600 mb-2">{issue.description}</p>
           {issue.affectedEntities.length > 0 && (
             <div className="flex flex-wrap gap-1">
               {issue.affectedEntities.map((entity: string, idx: number) => (
-                <span key={idx} className="px-2 py-1 bg-white border border-gray-200 rounded text-xs text-gray-700 hover:border-gray-400 transition-colors">
+                <span key={idx} className="px-2 py-1 bg-white border border-gray-200 rounded text-xs text-gray-700 hover:border-gray-400 hover:scale-105 transition-all duration-200">
                   {entity}
                 </span>
               ))}
@@ -331,10 +331,10 @@ function RecommendationCard({
   };
 
   return (
-    <div className="border border-gray-200 rounded-lg p-4 hover:border-blue-400 hover:shadow-md transition-all">
+    <div className="border border-gray-200 rounded-lg p-4 hover:border-blue-400 hover:shadow-md hover:scale-105 transition-all duration-300 animate-fadeIn">
       <div className="flex items-start justify-between mb-2">
         <h3 className="font-semibold text-gray-900">{recommendation.title}</h3>
-        <span className={`px-2 py-1 rounded text-xs font-medium border ${priorityColors[recommendation.priority]}`}>
+        <span className={`px-2 py-1 rounded text-xs font-medium border ${priorityColors[recommendation.priority]} animate-float`}>
           {recommendation.priority.toUpperCase()} PRIORITY
         </span>
       </div>
