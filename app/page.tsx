@@ -20,6 +20,9 @@ export default function HomePage() {
               <Link href="/platform" className="text-sm font-medium text-gray-600 hover:text-gray-900">
                 Platform
               </Link>
+              <Link href="/about" className="text-sm font-medium text-gray-600 hover:text-gray-900">
+                About
+              </Link>
               <Link 
                 href="/app/dashboard"
                 className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700"
@@ -222,7 +225,7 @@ function PipelineStep({
       <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 text-white rounded-full mb-4 text-2xl font-bold">
         {number}
       </div>
-      <div className="mb-4 text-blue-600">
+      <div className="mb-4 text-blue-600 flex justify-center">
         {icon}
       </div>
       <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>

@@ -1,16 +1,3 @@
-/**
- * AUDIT RESULTS DATA
- * 
- * This file contains mock audit data structured to mirror production API responses.
- * 
- * Design decisions:
- * 1. Each module result is self-contained - no cross-references needed
- * 2. Arrays (insights, issues, recommendations) allow easy iteration in UI
- * 3. Priority/severity fields enable dynamic styling without hardcoding
- * 4. Action items array shows understanding that recommendations need steps
- * 
- * In production, this would be replaced by API calls to /api/audit/:moduleId
- */
 import { AuditResult } from '../types';
 
 export const AUDIT_RESULTS: Record<string, AuditResult> = {

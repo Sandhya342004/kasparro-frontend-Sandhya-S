@@ -20,6 +20,9 @@ export default function PlatformPage() {
               <Link href="/" className="text-sm font-medium text-gray-600 hover:text-gray-900">
                 Home
               </Link>
+              <Link href="/about" className="text-sm font-medium text-gray-600 hover:text-gray-900">
+                About
+              </Link>
               <Link 
                 href="/app/dashboard"
                 className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700"

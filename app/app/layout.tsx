@@ -9,14 +9,16 @@ export default function AppLayout({
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Top Navigation */}
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 py-5">
           <div className="flex items-center justify-between">
-            <Link href="/" className="text-2xl font-bold text-gray-900">
+            {/* MUCH BIGGER Company Logo */}
+            <Link href="/" className="text-3xl font-extrabold text-gray-900 hover:text-blue-600 transition-colors tracking-tight">
               Kasparro
             </Link>
             
-            <div className="flex items-center gap-6">
+            {/* Navigation Links - Keep Small */}
+            <div className="flex items-center gap-8">
               <NavLink href="/app/dashboard" icon={<LayoutDashboard className="w-4 h-4" />}>
                 Dashboard
               </NavLink>
@@ -28,7 +30,7 @@ export default function AppLayout({
               </NavLink>
               <Link 
                 href="/" 
-                className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900"
+                className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors"
               >
                 <Home className="w-4 h-4" />
                 Home
@@ -56,7 +58,7 @@ function NavLink({
   return (
     <Link 
       href={href}
-      className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors"
+      className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors"
     >
       {icon}
       {children}
