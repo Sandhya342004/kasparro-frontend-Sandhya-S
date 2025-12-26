@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { AUDIT_MODULES } from '@/lib/data/modules';
 import { AUDIT_RESULTS } from '@/lib/data/audit-data';
 import { getStatusColor } from '@/lib/utils';
+import { Insight, Issue, Recommendation } from '@/lib/types';
 import { 
   Eye, Shield, FileText, Network, Link, Code, TrendingUp,
   AlertCircle, CheckCircle2, AlertTriangle, Info, ChevronRight, Search, Filter
@@ -261,7 +262,7 @@ function MetricCard({ metric }: { metric: any }) {
   );
 }
 
-function InsightCard({ insight }: { insight: any }) {
+function InsightCard({ insight }: { insight: Insight }) {
   const impactColors = {
     high: 'bg-green-100 text-green-700 border-green-200',
     medium: 'bg-blue-100 text-blue-700 border-blue-200',
@@ -281,7 +282,7 @@ function InsightCard({ insight }: { insight: any }) {
   );
 }
 
-function IssueCard({ issue }: { issue: any }) {
+function IssueCard({ issue }: { issue: Issue }) {
   const severityConfig = {
     critical: { icon: AlertCircle, color: 'text-red-600', bg: 'bg-red-50', border: 'border-red-200' },
     warning: { icon: AlertTriangle, color: 'text-yellow-600', bg: 'bg-yellow-50', border: 'border-yellow-200' },
@@ -319,7 +320,7 @@ function RecommendationCard({
   isExpanded,
   onToggle 
 }: { 
-  recommendation: any;
+  recommendation: Recommendation;
   isExpanded: boolean;
   onToggle: () => void;
 }) {

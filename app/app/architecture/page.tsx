@@ -2,6 +2,8 @@
 
 import { Database, Cpu, Box, FileOutput, ArrowRight } from 'lucide-react';
 
+type ColorType = 'blue' | 'purple' | 'green' | 'orange';
+
 export default function ArchitecturePage() {
   return (
     <div className="min-h-screen bg-gray-50 p-8">
@@ -138,7 +140,7 @@ export default function ArchitecturePage() {
   );
 }
 
-function ArchitectureNode({ icon, title, description, color }: any) {
+function ArchitectureNode({ icon, title, description, color }: { icon: React.ReactNode; title: string; description: string; color: ColorType }) {
   const colorClasses = {
     blue: 'bg-blue-50 text-blue-600 border-blue-200',
     purple: 'bg-purple-50 text-purple-600 border-purple-200',

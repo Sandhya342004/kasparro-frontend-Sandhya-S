@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { AUDIT_MODULES } from '@/lib/data/modules';
 import { ArrowRight, Database, Cpu, FileOutput, Eye, Shield, FileText, Network, Link as LinkIcon, Code, TrendingUp } from 'lucide-react';
 
+type ColorType = 'blue' | 'purple' | 'green' | 'orange';
+
 const iconMap: Record<string, any> = {
   Eye, Shield, FileText, Network, Link: LinkIcon, Code, TrendingUp
 };
@@ -168,7 +170,7 @@ export default function PlatformPage() {
   );
 }
 
-function FlowCard({ icon, title, description, color }: any) {
+function FlowCard({ icon, title, description, color }: { icon: React.ReactNode; title: string; description: string; color: ColorType }) {
   const colorClasses = {
     blue: 'bg-blue-50 text-blue-600 border-blue-200',
     purple: 'bg-purple-50 text-purple-600 border-purple-200',
