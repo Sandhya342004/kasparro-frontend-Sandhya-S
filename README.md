@@ -2,7 +2,7 @@
 
 Frontend V1 implementation demonstrating system thinking, component architecture, and product understanding for an AI-native SEO platform.
 
-**Live Demo:** https://kasparro-frontendsandhyas.vercel.app/  
+**Live Demo:** https://kasparro-frontend-sandhyas.vercel.app/
 **GitHub Repository:** https://github.com/Sandhya342004/kasparro-frontend-Sandhya-S.git
 
 
