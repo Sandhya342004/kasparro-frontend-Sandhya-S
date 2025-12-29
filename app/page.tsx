@@ -186,7 +186,7 @@ export default function HomePage() {
 }
 
 // Module Card Component
-function ModuleCard({ module, Icon }: { module: any; Icon: any }) {
+function ModuleCard({ module, Icon }: { module: { name: string; description: string }; Icon: React.ComponentType<{ className?: string }> }) {
   return (
     <div className="bg-white p-6 rounded-xl border border-gray-200 hover:border-blue-500 hover:shadow-lg hover:scale-105 transition-all duration-300 animate-fadeIn">
       <div className="inline-flex p-3 bg-blue-50 rounded-lg mb-4 hover:bg-blue-100 transition-colors">

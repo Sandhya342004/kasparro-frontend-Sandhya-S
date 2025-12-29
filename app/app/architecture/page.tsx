@@ -1,6 +1,8 @@
 'use client';
 
-import { Database, Cpu, Box, FileOutput, ArrowRight } from 'lucide-react';
+import { Database, Cpu, Box, FileOutput, ArrowRight, Eye, Shield, FileText, Network, Link, Code, TrendingUp } from 'lucide-react';
+import StatusBadge from '@/components/ui/StatusBadge';
+import { AUDIT_MODULES } from '@/lib/data/modules';
 
 type ColorType = 'blue' | 'purple' | 'green' | 'orange';
 
@@ -51,6 +53,33 @@ export default function ArchitecturePage() {
               description="Insights, scores, and recommendations"
               color="orange"
             />
+          </div>
+        </div>
+
+        {/* Module Overview */}
+        <div className="bg-white rounded-xl border border-gray-200 p-8 mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 mb-6">Analysis Modules</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {AUDIT_MODULES.map((module) => {
+              const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+                Eye, Shield, FileText, Network, Link, Code, TrendingUp
+              };
+              const Icon = iconMap[module.icon] || Eye;
+              
+              return (
+                <div key={module.id} className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                  <StatusBadge 
+                    color={module.color as "blue" | "purple" | "green" | "orange"} 
+                    icon={<Icon className="w-6 h-6" />} 
+                  />
+                  <h3 className="font-semibold text-gray-900 mb-2">{module.name}</h3>
+                  <p className="text-sm text-gray-600 mb-3">{module.description}</p>
+                  <span className="inline-block px-2 py-1 bg-white border border-gray-200 rounded text-xs text-gray-700">
+                    {module.category}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -109,30 +138,30 @@ export default function ArchitecturePage() {
         <div className="mt-8 bg-white rounded-xl border border-gray-200 p-6">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Key Technical Characteristics</h2>
           <div className="grid md:grid-cols-3 gap-6">
-            <TechDetail
-              label="Processing Model"
-              value="Modular Pipeline Architecture"
-            />
-            <TechDetail
-              label="Analysis Approach"
-              value="Multi-dimensional AI Perception"
-            />
-            <TechDetail
-              label="Data Sources"
-              value="AI Platforms + Knowledge Graphs"
-            />
-            <TechDetail
-              label="Update Frequency"
-              value="On-demand Audits"
-            />
-            <TechDetail
-              label="Module Count"
-              value="7 Specialized Modules"
-            />
-            <TechDetail
-              label="Output Format"
-              value="Structured JSON + Dashboard"
-            />
+            <div>
+              <p className="text-sm text-gray-500 mb-1">Processing Model</p>
+              <p className="font-semibold text-gray-900">Modular Pipeline Architecture</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500 mb-1">Analysis Approach</p>
+              <p className="font-semibold text-gray-900">Multi-dimensional AI Perception</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500 mb-1">Data Sources</p>
+              <p className="font-semibold text-gray-900">AI Platforms + Knowledge Graphs</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500 mb-1">Update Frequency</p>
+              <p className="font-semibold text-gray-900">On-demand Audits</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500 mb-1">Module Count</p>
+              <p className="font-semibold text-gray-900">7 Specialized Modules</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500 mb-1">Output Format</p>
+              <p className="font-semibold text-gray-900">Structured JSON + Dashboard</p>
+            </div>
           </div>
         </div>
       </div>
@@ -141,7 +170,7 @@ export default function ArchitecturePage() {
 }
 
 function ArchitectureNode({ icon, title, description, color }: { icon: React.ReactNode; title: string; description: string; color: ColorType }) {
-  const colorClasses = {
+  const colorClasses: Record<ColorType, string> = {
     blue: 'bg-blue-50 text-blue-600 border-blue-200',
     purple: 'bg-purple-50 text-purple-600 border-purple-200',
     green: 'bg-green-50 text-green-600 border-green-200',
@@ -159,7 +188,7 @@ function ArchitectureNode({ icon, title, description, color }: { icon: React.Rea
   );
 }
 
-function ComponentCard({ title, description, features }: any) {
+function ComponentCard({ title, description, features }: { title: string; description: string; features: string[] }) {
   return (
     <div className="bg-white rounded-xl border border-gray-200 p-6">
       <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>
@@ -176,7 +205,7 @@ function ComponentCard({ title, description, features }: any) {
   );
 }
 
-function TechDetail({ label, value }: any) {
+function TechDetail({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <p className="text-sm text-gray-500 mb-1">{label}</p>

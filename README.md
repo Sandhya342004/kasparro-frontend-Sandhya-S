@@ -97,7 +97,7 @@ kasparro-assignment/
 
 | Technology        | Purpose                                        |
 | ---               |                                            --- |
-| **Next.js 15**    | App Router for modern React patterns           |
+| **Next.js 16.1.1**| App Router for modern React patterns           |
 | **TypeScript**    | Type safety and robust developer experience    |
 | **Tailwind CSS**  | Utility-first styling for rapid UI development |
 | **Lucide React**  | Consistent, lightweight icon system            |
@@ -160,6 +160,6 @@ npm run dev
 
 # Author
 
-Sandhya
+Sandhya S
 
 Email: sandhyagowda506@gmail.com

@@ -37,6 +37,11 @@ export interface AuditResult {
   issues: Issue[];
   recommendations: Recommendation[];
   metrics: Metric[];
+  title?: string;
+  description?: string;
+  color?: string;
+  icon?: React.ReactNode;
+  category?: string;
 }
 
 export interface Insight {
@@ -107,3 +112,35 @@ export interface PipelineStage {
 export type ScoreStatus = 'excellent' | 'good' | 'warning' | 'critical';
 export type Priority = 'high' | 'medium' | 'low';
 export type Severity = 'critical' | 'warning' | 'info';
+export type ModuleColor = 'blue' | 'purple' | 'green' | 'orange' | 'cyan' | 'gray' | 'pink';
+export type ModuleIcon = 'Eye' | 'Shield' | 'FileText' | 'Network' | 'Link' | 'Code' | 'TrendingUp';
+
+// Component prop types
+export interface Metric {
+  label: string;
+  value: string | number;
+  change?: number;
+  changeLabel?: string;
+}
+
+export interface ModuleDetailCardProps {
+  module: AuditModule;
+  Icon: React.ComponentType<{ className?: string }>;
+  index: number;
+}
+
+export interface OutputCardProps {
+  title: string;
+  description: string;
+}
+
+export interface ComponentCardProps {
+  title: string;
+  description: string;
+  features: string[];
+}
+
+export interface TechDetailProps {
+  label: string;
+  value: string;
+}

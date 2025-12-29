@@ -1,32 +1,63 @@
 'use client';
 
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
 import { AUDIT_MODULES } from '@/lib/data/modules';
 import { AUDIT_RESULTS } from '@/lib/data/audit-data';
 import { getStatusColor } from '@/lib/utils';
-import { Insight, Issue, Recommendation } from '@/lib/types';
+import { Insight, Issue, Recommendation, Metric } from '@/lib/types';
+import ModuleCard from '@/components/ui/ModuleCard';
+import AuditItem from '@/components/ui/AuditItem';
 import { 
   Eye, Shield, FileText, Network, Link, Code, TrendingUp,
   AlertCircle, CheckCircle2, AlertTriangle, Info, ChevronRight, Search, Filter
 } from 'lucide-react';
 
-// Icon mapping
-const iconMap: Record<string, any> = {
+// Icon mapping with proper typing
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Eye, Shield, FileText, Network, Link, Code, TrendingUp
 };
 
-export default function AuditPage() {
-  const [selectedModuleId, setSelectedModuleId] = useState('ai-visibility');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filterCategory, setFilterCategory] = useState<string>('all');
+// State management with useReducer
+interface AuditState {
+  selectedModuleId: string;
+  searchQuery: string;
+  filterCategory: string;
+}
 
-  const selectedResult = AUDIT_RESULTS[selectedModuleId];
+type AuditAction =
+  | { type: 'SET_SELECTED_MODULE'; payload: string }
+  | { type: 'SET_SEARCH_QUERY'; payload: string }
+  | { type: 'SET_FILTER_CATEGORY'; payload: string };
+
+const initialState: AuditState = {
+  selectedModuleId: 'ai-visibility',
+  searchQuery: '',
+  filterCategory: 'all'
+};
+
+function auditReducer(state: AuditState, action: AuditAction): AuditState {
+  switch (action.type) {
+    case 'SET_SELECTED_MODULE':
+      return { ...state, selectedModuleId: action.payload };
+    case 'SET_SEARCH_QUERY':
+      return { ...state, searchQuery: action.payload };
+    case 'SET_FILTER_CATEGORY':
+      return { ...state, filterCategory: action.payload };
+    default:
+      return state;
+  }
+}
+
+export default function AuditPage() {
+  const [state, dispatch] = useReducer(auditReducer, initialState);
+
+  const selectedResult = AUDIT_RESULTS[state.selectedModuleId];
 
   // Filter modules based on search and category
   const filteredModules = AUDIT_MODULES.filter(module => {
-    const matchesSearch = module.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         module.description.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = filterCategory === 'all' || module.category === filterCategory;
+    const matchesSearch = module.name.toLowerCase().includes(state.searchQuery.toLowerCase()) ||
+                         module.description.toLowerCase().includes(state.searchQuery.toLowerCase());
+    const matchesCategory = state.filterCategory === 'all' || module.category === state.filterCategory;
     return matchesSearch && matchesCategory;
   });
 
@@ -44,8 +75,8 @@ export default function AuditPage() {
             <input
               type="text"
               placeholder="Search modules..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              value={state.searchQuery}
+              onChange={(e) => dispatch({ type: 'SET_SEARCH_QUERY', payload: e.target.value })}
               className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -54,28 +85,28 @@ export default function AuditPage() {
           <div className="mt-3 flex items-center gap-2 flex-wrap">
             <FilterButton 
               label="All" 
-              active={filterCategory === 'all'} 
-              onClick={() => setFilterCategory('all')}
+              active={state.filterCategory === 'all'} 
+              onClick={() => dispatch({ type: 'SET_FILTER_CATEGORY', payload: 'all' })}
             />
             <FilterButton 
               label="Visibility" 
-              active={filterCategory === 'visibility'} 
-              onClick={() => setFilterCategory('visibility')}
+              active={state.filterCategory === 'visibility'} 
+              onClick={() => dispatch({ type: 'SET_FILTER_CATEGORY', payload: 'visibility' })}
             />
             <FilterButton 
               label="Trust" 
-              active={filterCategory === 'trust'} 
-              onClick={() => setFilterCategory('trust')}
+              active={state.filterCategory === 'trust'} 
+              onClick={() => dispatch({ type: 'SET_FILTER_CATEGORY', payload: 'trust' })}
             />
             <FilterButton 
               label="Content" 
-              active={filterCategory === 'content'} 
-              onClick={() => setFilterCategory('content')}
+              active={state.filterCategory === 'content'} 
+              onClick={() => dispatch({ type: 'SET_FILTER_CATEGORY', payload: 'content' })}
             />
             <FilterButton 
               label="Technical" 
-              active={filterCategory === 'technical'} 
-              onClick={() => setFilterCategory('technical')}
+              active={state.filterCategory === 'technical'} 
+              onClick={() => dispatch({ type: 'SET_FILTER_CATEGORY', payload: 'technical' })}
             />
           </div>
         </div>
@@ -87,41 +118,31 @@ export default function AuditPage() {
             </div>
           ) : (
             filteredModules.map((module) => {
-              const isSelected = selectedModuleId === module.id;
+              const isSelected = state.selectedModuleId === module.id;
               const result = AUDIT_RESULTS[module.id];
               const Icon = iconMap[module.icon];
 
               return (
-                <button
+                <ModuleCard
                   key={module.id}
-                  onClick={() => setSelectedModuleId(module.id)}
-                  className={`w-full text-left p-4 rounded-lg mb-2 transition-all ${
-                    isSelected
-                      ? 'bg-blue-50 border-2 border-blue-500 shadow-sm'
-                      : 'bg-white border border-gray-200 hover:border-blue-300 hover:bg-gray-50'
-                  }`}
-                >
-                  <div className="flex items-start gap-3">
-                    <div className={`p-2 rounded-lg transition-all ${isSelected ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-600'}`}>
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between mb-1">
-                        <h3 className="font-semibold text-sm text-gray-900">{module.name}</h3>
-                        {result && (
-                          <span className="text-lg font-bold text-gray-900">{result.score}</span>
-                        )}
-                      </div>
-                      <p className="text-xs text-gray-600 line-clamp-2">{module.description}</p>
-                      <div className="mt-2">
-                        <span className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded">
-                          {module.category}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </button>
+                  result={{
+                    moduleId: module.id,
+                    moduleName: module.name,
+                    title: module.name,
+                    description: module.description,
+                    score: result?.score || 0,
+                    status: result?.status || 'good',
+                    color: module.color as "blue" | "purple" | "green" | "orange",
+                    icon: <Icon className="w-5 h-5" />,
+                    insights: result?.insights || [],
+                    issues: result?.issues || [],
+                    recommendations: result?.recommendations || [],
+                    metrics: result?.metrics || [],
+                    summary: result?.summary || ''
+                  }}
+                  onClick={() => dispatch({ type: 'SET_SELECTED_MODULE', payload: module.id })}
+                  isSelected={isSelected}
+                />
               );
             })
           )}
@@ -199,7 +220,12 @@ function ModuleDetails({ result }: { result: typeof AUDIT_RESULTS[string] }) {
           </div>
           <div className="space-y-3">
             {result.insights.map((insight) => (
-              <InsightCard key={insight.id} insight={insight} />
+              <AuditItem
+                key={insight.id}
+                insight={insight}
+                issue={{ id: 'none', title: '', description: '', severity: 'info', affectedEntities: [] }}
+                recommendations={[]}
+              />
             ))}
           </div>
         </div>
@@ -216,7 +242,17 @@ function ModuleDetails({ result }: { result: typeof AUDIT_RESULTS[string] }) {
           </div>
           <div className="space-y-3">
             {result.issues.map((issue) => (
-              <IssueCard key={issue.id} issue={issue} />
+              <AuditItem
+                key={issue.id}
+                insight={{
+                  id: issue.id,
+                  title: issue.title,
+                  description: issue.description,
+                  impact: 'medium'
+                }}
+                issue={issue}
+                showSeverity={true}
+              />
             ))}
           </div>
         </div>
@@ -248,7 +284,7 @@ function ModuleDetails({ result }: { result: typeof AUDIT_RESULTS[string] }) {
 }
 
 // Enhanced components with animations
-function MetricCard({ metric }: { metric: any }) {
+function MetricCard({ metric }: { metric: Metric }) {
   return (
     <div className="group">
       <p className="text-sm text-gray-500 mb-1">{metric.label}</p>

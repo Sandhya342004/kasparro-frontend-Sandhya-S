@@ -171,7 +171,7 @@ export default function PlatformPage() {
 }
 
 function FlowCard({ icon, title, description, color }: { icon: React.ReactNode; title: string; description: string; color: ColorType }) {
-  const colorClasses = {
+  const colorClasses: Record<ColorType, string> = {
     blue: 'bg-blue-50 text-blue-600 border-blue-200',
     purple: 'bg-purple-50 text-purple-600 border-purple-200',
     green: 'bg-green-50 text-green-600 border-green-200',
@@ -189,7 +189,7 @@ function FlowCard({ icon, title, description, color }: { icon: React.ReactNode; 
   );
 }
 
-function ModuleDetailCard({ module, Icon, index }: any) {
+function ModuleDetailCard({ module, Icon, index }: { module: any; Icon: React.ComponentType<{ className?: string }>; index: number }) {
   return (
     <div className="bg-white p-6 rounded-xl border border-gray-200 hover:border-blue-500 transition-all">
       <div className="flex items-start gap-4">
@@ -215,7 +215,7 @@ function ModuleDetailCard({ module, Icon, index }: any) {
   );
 }
 
-function OutputCard({ title, description }: any) {
+function OutputCard({ title, description }: { title: string; description: string }) {
   return (
     <div className="bg-white p-6 rounded-xl border border-gray-200">
       <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>
