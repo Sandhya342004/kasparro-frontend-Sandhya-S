@@ -3,6 +3,7 @@
 import { Database, Cpu, Box, FileOutput, ArrowRight, Eye, Shield, FileText, Network, Link, Code, TrendingUp } from 'lucide-react';
 import StatusBadge from '@/components/ui/StatusBadge';
 import { AUDIT_MODULES } from '@/lib/data/modules';
+import { ModuleIcon } from '@/lib/types';
 
 type ColorType = 'blue' | 'purple' | 'green' | 'orange';
 
@@ -61,10 +62,10 @@ export default function ArchitecturePage() {
           <h2 className="text-xl font-semibold text-gray-900 mb-6">Analysis Modules</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {AUDIT_MODULES.map((module) => {
-              const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+              const iconMap: Record<ModuleIcon, React.ComponentType<{ className?: string }>> = {
                 Eye, Shield, FileText, Network, Link, Code, TrendingUp
               };
-              const Icon = iconMap[module.icon] || Eye;
+              const Icon = iconMap[module.icon as ModuleIcon] || Eye;
               
               return (
                 <div key={module.id} className="bg-gray-50 rounded-lg p-6 border border-gray-200">

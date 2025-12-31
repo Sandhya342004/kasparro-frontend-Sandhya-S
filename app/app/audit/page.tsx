@@ -4,7 +4,7 @@ import { useReducer, useState } from 'react';
 import { AUDIT_MODULES } from '@/lib/data/modules';
 import { AUDIT_RESULTS } from '@/lib/data/audit-data';
 import { getStatusColor } from '@/lib/utils';
-import { Insight, Issue, Recommendation, Metric } from '@/lib/types';
+import { Insight, Issue, Recommendation, Metric, ModuleIcon } from '@/lib/types';
 import ModuleCard from '@/components/ui/ModuleCard';
 import AuditItem from '@/components/ui/AuditItem';
 import { 
@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 
 // Icon mapping with proper typing
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+const iconMap: Record<ModuleIcon, React.ComponentType<{ className?: string }>> = {
   Eye, Shield, FileText, Network, Link, Code, TrendingUp
 };
 
@@ -22,17 +22,20 @@ interface AuditState {
   selectedModuleId: string;
   searchQuery: string;
   filterCategory: string;
+  expandedRecommendationId: string | null;
 }
 
 type AuditAction =
   | { type: 'SET_SELECTED_MODULE'; payload: string }
   | { type: 'SET_SEARCH_QUERY'; payload: string }
-  | { type: 'SET_FILTER_CATEGORY'; payload: string };
+  | { type: 'SET_FILTER_CATEGORY'; payload: string }
+  | { type: 'SET_EXPANDED_RECOMMENDATION'; payload: string | null };
 
 const initialState: AuditState = {
   selectedModuleId: 'ai-visibility',
   searchQuery: '',
-  filterCategory: 'all'
+  filterCategory: 'all',
+  expandedRecommendationId: null
 };
 
 function auditReducer(state: AuditState, action: AuditAction): AuditState {
@@ -43,6 +46,8 @@ function auditReducer(state: AuditState, action: AuditAction): AuditState {
       return { ...state, searchQuery: action.payload };
     case 'SET_FILTER_CATEGORY':
       return { ...state, filterCategory: action.payload };
+    case 'SET_EXPANDED_RECOMMENDATION':
+      return { ...state, expandedRecommendationId: action.payload };
     default:
       return state;
   }
@@ -120,7 +125,7 @@ export default function AuditPage() {
             filteredModules.map((module) => {
               const isSelected = state.selectedModuleId === module.id;
               const result = AUDIT_RESULTS[module.id];
-              const Icon = iconMap[module.icon];
+              const Icon = iconMap[module.icon as ModuleIcon];
 
               return (
                 <ModuleCard
@@ -152,7 +157,7 @@ export default function AuditPage() {
       {/* Main Content - Module Details */}
       <main className="flex-1 overflow-y-auto">
         <div className="max-w-5xl mx-auto p-8">
-          {selectedResult && <ModuleDetails result={selectedResult} />}
+          {selectedResult && <ModuleDetails result={selectedResult} state={state} dispatch={dispatch} />}
         </div>
       </main>
     </div>
@@ -176,9 +181,8 @@ function FilterButton({ label, active, onClick }: { label: string; active: boole
 }
 
 // Module Details Component (JSON-driven) - ENHANCED
-function ModuleDetails({ result }: { result: typeof AUDIT_RESULTS[string] }) {
+function ModuleDetails({ result, state, dispatch }: { result: typeof AUDIT_RESULTS[string]; state: AuditState; dispatch: React.Dispatch<AuditAction> }) {
   const statusColor = getStatusColor(result.status);
-  const [expandedRec, setExpandedRec] = useState<string | null>(null);
 
   return (
     <div>
@@ -272,8 +276,8 @@ function ModuleDetails({ result }: { result: typeof AUDIT_RESULTS[string] }) {
               <RecommendationCard 
                 key={rec.id} 
                 recommendation={rec}
-                isExpanded={expandedRec === rec.id}
-                onToggle={() => setExpandedRec(expandedRec === rec.id ? null : rec.id)}
+                isExpanded={state.expandedRecommendationId === rec.id}
+                onToggle={() => dispatch({ type: 'SET_EXPANDED_RECOMMENDATION', payload: state.expandedRecommendationId === rec.id ? null : rec.id })}
               />
             ))}
           </div>
@@ -299,7 +303,7 @@ function MetricCard({ metric }: { metric: Metric }) {
 }
 
 function InsightCard({ insight }: { insight: Insight }) {
-  const impactColors = {
+  const impactColors: Record<'high' | 'medium' | 'low', string> = {
     high: 'bg-green-100 text-green-700 border-green-200',
     medium: 'bg-blue-100 text-blue-700 border-blue-200',
     low: 'bg-gray-100 text-gray-700 border-gray-200'
@@ -319,7 +323,14 @@ function InsightCard({ insight }: { insight: Insight }) {
 }
 
 function IssueCard({ issue }: { issue: Issue }) {
-  const severityConfig = {
+  type SeverityConfig = {
+    icon: React.ComponentType<{ className?: string }>;
+    color: string;
+    bg: string;
+    border: string;
+  };
+
+  const severityConfig: Record<'critical' | 'warning' | 'info', SeverityConfig> = {
     critical: { icon: AlertCircle, color: 'text-red-600', bg: 'bg-red-50', border: 'border-red-200' },
     warning: { icon: AlertTriangle, color: 'text-yellow-600', bg: 'bg-yellow-50', border: 'border-yellow-200' },
     info: { icon: Info, color: 'text-blue-600', bg: 'bg-blue-50', border: 'border-blue-200' }
@@ -360,7 +371,7 @@ function RecommendationCard({
   isExpanded: boolean;
   onToggle: () => void;
 }) {
-  const priorityColors = {
+  const priorityColors: Record<'high' | 'medium' | 'low', string> = {
     high: 'bg-red-100 text-red-700 border-red-200',
     medium: 'bg-yellow-100 text-yellow-700 border-yellow-200',
     low: 'bg-blue-100 text-blue-700 border-blue-200'

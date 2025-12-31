@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import { AUDIT_MODULES } from '@/lib/data/modules';
 import { ArrowRight, Database, Cpu, FileOutput, Eye, Shield, FileText, Network, Link as LinkIcon, Code, TrendingUp } from 'lucide-react';
+import { ModuleIcon } from '@/lib/types';
 
 type ColorType = 'blue' | 'purple' | 'green' | 'orange';
 
-const iconMap: Record<string, any> = {
+const iconMap: Record<ModuleIcon, React.ComponentType<{ className?: string }>> = {
   Eye, Shield, FileText, Network, Link: LinkIcon, Code, TrendingUp
 };
 
@@ -103,7 +104,7 @@ export default function PlatformPage() {
 
           <div className="space-y-6">
             {AUDIT_MODULES.map((module, index) => {
-              const Icon = iconMap[module.icon];
+              const Icon = iconMap[module.icon as ModuleIcon];
               return (
                 <ModuleDetailCard 
                   key={module.id}

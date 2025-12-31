@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import { AUDIT_MODULES } from '@/lib/data/modules';
 import { Eye, Shield, FileText, Network, Link as LinkIcon, Code, TrendingUp, ArrowRight, Sparkles, Brain, Database } from 'lucide-react';
+import { ModuleIcon } from '@/lib/types';
 
-const iconMap: Record<string, any> = {
+const iconMap: Record<ModuleIcon, React.ComponentType<{ className?: string }>> = {
   Eye, Shield, FileText, Network, Link: LinkIcon, Code, TrendingUp
 };
 
@@ -117,7 +118,7 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {AUDIT_MODULES.map((module) => {
-              const Icon = iconMap[module.icon];
+              const Icon = iconMap[module.icon as ModuleIcon];
               return (
                 <ModuleCard key={module.id} module={module} Icon={Icon} />
               );

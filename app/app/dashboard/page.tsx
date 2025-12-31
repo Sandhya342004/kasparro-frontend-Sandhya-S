@@ -109,7 +109,7 @@ function ScoreCard({
   subtitle?: string;
   className?: string;
 }) {
-  const colorClasses: Record<string, string> = {
+  const colorClasses: Record<'blue' | 'green' | 'purple', string> = {
     blue: 'text-blue-600 bg-blue-50',
     green: 'text-green-600 bg-green-50',
     purple: 'text-purple-600 bg-purple-50'
